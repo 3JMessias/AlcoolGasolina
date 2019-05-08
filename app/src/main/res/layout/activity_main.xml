@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="370dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="124dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="casual"
+        android:text="Calcular compensação combustível"
+        android:textAlignment="center"
+        android:textColor="#110B0B"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:typeface="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edtValorAlcoll"
+        style="@style/Widget.AppCompat.AutoCompleteTextView"
+        android:layout_width="292dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="71dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="51dp"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:hint="Digite o Valor do Etanol"
+        android:inputType="textPersonName"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/edtValorGasolina"
+        style="@style/Widget.AppCompat.AutoCompleteTextView"
+        android:layout_width="288dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="71dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="51dp"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:hint="Digite o Valor da Gasolina"
+        android:inputType="textPersonName"
+        android:singleLine="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtValorAlcoll" />
+
+    <Button
+        android:id="@+id/btnCalcular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="140dp"
+        android:background="#1DBDB9B9"
+        android:backgroundTintMode="multiply"
+        android:fontFamily="casual"
+        android:text="Calcular"
+        android:textColor="#090808"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtValorGasolina" />
+
+</android.support.constraint.ConstraintLayout>
