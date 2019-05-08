@@ -1,5 +1,7 @@
 package com.unipac.alcoolgasolina;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,14 +12,15 @@ import android.widget.Toast;
 import com.unipac.alcoolgasolina.domain.Combustivel;
 import com.unipac.alcoolgasolina.util.SecurityPreferences;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class MainActivity extends AppCompatActivity {
-    private Button calcular;
-    private Double valorAlcool;
-    private Double valorGasolina;
-    private Double resultado;
 
     private ViewHolder viewHolder = new ViewHolder();
     private SecurityPreferences securityPreferences;
+    public static final String MyPreferences = "MyPrefs";
+
+    SharedPreferences sharedPreferences;
 
 
     @Override
@@ -26,15 +29,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         securityPreferences = new SecurityPreferences(this);
+        sharedPreferences = getSharedPreferences(MyPreferences, MODE_PRIVATE);
 
         this.viewHolder.valorAlcoolEdt = (EditText) findViewById(R.id.edtValorAlcoll);
         this.viewHolder.valorGasolinaEdt = (EditText)findViewById(R.id.edtValorGasolina);
         this.viewHolder.calcularBtn = (Button)findViewById(R.id.btnCalcular);
-
-//        valorAlcool = Double.parseDouble()
-
-
-
 
 //        calcular = (Button)findViewById(R.id.btnCalcular);
 //        valorAlcool = Double.parseDouble(findViewById(R.id.edtValorAlcoll).toString());
@@ -43,19 +42,39 @@ public class MainActivity extends AppCompatActivity {
         this.viewHolder.calcularBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Double precoAlcool = Double.parseDouble(MainActivity.this.viewHolder.valorAlcoolEdt.getText().toString());
-                Double precoGasolina = Double.parseDouble(MainActivity.this.viewHolder.valorAlcoolEdt.getText().toString());
 
-                Combustivel combustivel = criaCombustivel(precoAlcool, precoGasolina);
-                insereInformacao(combustivel);
+                if(MainActivity.this.viewHolder.valorAlcoolEdt.getText().length() == 0){
+                    Toast.makeText(MainActivity.this, "Campo de valor do Etanol está vazio!", Toast.LENGTH_LONG).show();
+                    MainActivity.this.viewHolder.valorAlcoolEdt.requestFocus();
 
-                if(precoAlcool <= precoGasolina * 0.70) {
+                }else
+                    if(MainActivity.this.viewHolder.valorGasolinaEdt.getText().length() == 0){
+                    Toast.makeText(MainActivity.this, "Campo de valor da Gasolina está vazio!", Toast.LENGTH_LONG).show();
+                    MainActivity.this.viewHolder.valorGasolinaEdt.requestFocus();
+
+                }else {
+                    Float precoAlcool = Float.parseFloat(MainActivity.this.viewHolder.valorAlcoolEdt.getText().toString());
+                    Float precoGasolina = Float.parseFloat(MainActivity.this.viewHolder.valorAlcoolEdt.getText().toString());
+
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                        editor.putFloat("VALOR_ALCOOL", precoAlcool);
+                        editor.putFloat("VALOR_GASOLINA",precoGasolina);
+
+                        editor.commit();
+
+                        Combustivel combustivel = criaCombustivel(precoAlcool, precoGasolina);
+                        insereInformacao(combustivel);
+
+
+                    if (precoAlcool <= precoGasolina * 0.70) {
                         Toast.makeText(MainActivity.this, "Alcool é melhor.", Toast.LENGTH_SHORT).show();
-                }
-                else
-                    {
+                    } else {
                         Toast.makeText(MainActivity.this, "Gasolina é melhor.", Toast.LENGTH_SHORT).show();
                     }
+
+
+                }
 
             }
         });
@@ -73,14 +92,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void lerDados(){
-        Double precoAlcool = securityPreferences.recuperaFloat("PRECO_ALCOOL");
-        Double precoGasolina = securityPreferences.recuperaFloat("PRECO_GASOLINA");
+        Float precoAlcool = securityPreferences.recuperaFloat("PRECO_ALCOOL");
+        Float precoGasolina = securityPreferences.recuperaFloat("PRECO_GASOLINA");
 
         Combustivel combustivel = criaCombustivel(precoAlcool, precoGasolina);
         imprime(combustivel);
     }
 
-    private Combustivel criaCombustivel(Double precoAlcool, Double precoGasolina) {
+    private Combustivel criaCombustivel(Float precoAlcool, Float precoGasolina) {
         Combustivel combustivel = new Combustivel();
         combustivel.setPrecoAlcool(precoAlcool);
         combustivel.setPrecoGasolina(precoGasolina);

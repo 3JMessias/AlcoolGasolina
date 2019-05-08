@@ -3,25 +3,25 @@ package com.unipac.alcoolgasolina.domain;
 import java.io.Serializable;
 
 public class Combustivel implements Serializable {
-    private Double precoGasolina;
+    private Float precoGasolina;
 
-    public Double getPrecoGasolina() {
+    public Float getPrecoGasolina() {
         return precoGasolina;
     }
 
-    public void setPrecoGasolina(Double precoGasolina) {
+    public void setPrecoGasolina(Float precoGasolina) {
         this.precoGasolina = precoGasolina;
     }
 
-    public Double getPrecoAlcool() {
+    public Float getPrecoAlcool() {
         return precoAlcool;
     }
 
-    public void setPrecoAlcool(Double precoAlcool) {
+    public void setPrecoAlcool(Float precoAlcool) {
         this.precoAlcool = precoAlcool;
     }
 
-    private Double precoAlcool;
+    private Float precoAlcool;
 
 
 }

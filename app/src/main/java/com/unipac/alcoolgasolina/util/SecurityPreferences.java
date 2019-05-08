@@ -14,15 +14,15 @@ public class SecurityPreferences {
         this.preferences = PreferenceManager.getDefaultSharedPreferences(context);
         this.editor = preferences.edit();
     }
-    public void guardaFloat(String chave, Double valor) {
+    public void guardaFloat(String chave, Float valor) {
         editor.putFloat(chave, valor.floatValue()).commit();
     }
 
     public String recuperaString(String chave) {
         return preferences.getString(chave, NULO);
     }
-    public Double recuperaFloat(String chave) {
-        return new Double(preferences.getFloat(chave, 0));
+    public Float recuperaFloat(String chave) {
+        return new Float(preferences.getFloat(chave, 0));
     }
 
     public void guardaBoleano(String chave, boolean valor) {
